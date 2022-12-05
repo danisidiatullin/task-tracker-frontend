@@ -4,7 +4,7 @@ const requestOptions = ({
   token = null,
   body = null,
 }) => {
-  const headers = { "Content-Type": content_type };
+  let headers = { "Content-Type": content_type };
   if (token !== null) {
     headers["Authorization"] = `Bearer ${token}`;
   }
