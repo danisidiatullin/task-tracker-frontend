@@ -12,16 +12,15 @@ const Register = () => {
   const [, setToken] = useContext(UserContext);
 
   const submitRegistration = async () => {
-    const response = await ApiClient.submitRegistration({
+    const token = await ApiClient.submitRegistration({
       email: email,
       hashed_password: password,
     });
-    const data = await response.json();
 
-    if (!response.ok) {
-      setErrorMessage(data.detail);
+    if (token.access_token) {
+      setToken(token.access_token);
     } else {
-      setToken(data.access_token);
+      setErrorMessage(token.error);
     }
   };
 

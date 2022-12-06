@@ -8,11 +8,11 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await ApiClient.fetchUser(token);
-      if (!response.ok) {
+      const token_ = await ApiClient.fetchUser(token);
+      if (!token_) {
         setToken(null);
       }
-      localStorage.setItem("awesomeTasksToken", token);
+      localStorage.setItem("awesomeTasksToken", token_);
     };
     fetchUser();
   }, [token]);

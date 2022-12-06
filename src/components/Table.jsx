@@ -19,20 +19,19 @@ const Table = () => {
   };
 
   const handleDelete = async (id) => {
-    const response = await ApiClient.deleteTask(id, token);
-    if (!response.ok) {
+    const deleted = await ApiClient.deleteTask(id, token);
+    if (!deleted) {
       setErrorMessage("Failed to delete task");
     }
     getTasks();
   };
 
   const getTasks = async () => {
-    const response = await ApiClient.getTasks(token);
-    if (!response.ok) {
+    const tasks = await ApiClient.getTasks(token);
+    if (tasks.error) {
       setErrorMessage("Something went wrong. Couldn't load the tasks");
     } else {
-      const data = await response.json();
-      setTasks(data);
+      setTasks(tasks.data);
       setLoaded(true);
     }
   };

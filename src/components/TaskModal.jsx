@@ -12,12 +12,11 @@ const TaskModal = ({ active, handleModal, token, id, setErrorMessage }) => {
   const [statuses, setStatuses] = useState([]);
 
   const getStatuses = async () => {
-    const response = await ApiClient.getStatuses();
-    if (!response.ok) {
+    const statuses = await ApiClient.getStatuses();
+    if (statuses.error) {
       setErrorMessage("Something went wrong. Couldn't load the statuses");
     } else {
-      const data = await response.json();
-      setStatuses(data);
+      setStatuses(statuses.data);
     }
   };
 
@@ -31,11 +30,11 @@ const TaskModal = ({ active, handleModal, token, id, setErrorMessage }) => {
 
   useEffect(() => {
     const getTask = async () => {
-      const response = await ApiClient.getTask(id, token);
-      if (!response.ok) {
+      const task = await ApiClient.getTask(id, token);
+      if (task.error) {
         setErrorMessage("Could not get the task");
       } else {
-        const data = await response.json();
+        const data = task.data;
         setTitle(data.title);
         setDescription(data.description);
         setPriority(data.priority);
@@ -59,35 +58,35 @@ const TaskModal = ({ active, handleModal, token, id, setErrorMessage }) => {
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
-    const response = await ApiClient.createTask(token, {
+    const created = await ApiClient.createTask(token, {
       title: title,
       description: description,
       priority: priority,
       progress: progress,
       status: status,
     });
-    if (!response.ok) {
-      setErrorMessage("Something went wrong when creating task");
-    } else {
+    if (created) {
       cleanFormData();
       handleModal();
+    } else {
+      setErrorMessage("Something went wrong when creating task");
     }
   };
 
   const handleUpdateTask = async (e) => {
     e.preventDefault();
-    const response = await ApiClient.updateTask(id, token, {
+    const updated = await ApiClient.updateTask(id, token, {
       title: title,
       description: description,
       priority: priority,
       progress: progress,
       status: status,
     });
-    if (!response.ok) {
-      setErrorMessage("Something went wrong when updating task");
-    } else {
+    if (updated) {
       cleanFormData();
       handleModal();
+    } else {
+      setErrorMessage("Something went wrong when updating task");
     }
   };
 

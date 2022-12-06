@@ -11,14 +11,8 @@ const App = () => {
   const [token] = useContext(UserContext);
 
   const getTitle = async () => {
-    const response = await ApiClient.getTitle();
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.log("something messed up");
-    } else {
-      setMessage(data.message);
-    }
+    const title = await ApiClient.getTitle();
+    setMessage(title);
   };
   useEffect(() => {
     getTitle();

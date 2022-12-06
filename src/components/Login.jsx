@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 
 import ErrorMessage from "./ErrorMessage";
 import { UserContext } from "../context/UserContext";
-import { ApiClient } from "../api-client";
+import { ApiClient, errorMessage } from "../api-client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,16 +11,15 @@ const Login = () => {
   const [, setToken] = useContext(UserContext);
 
   const submitLogin = async () => {
-    const response = await ApiClient.submitLogin({
+    const token = await ApiClient.submitLogin({
       email: email,
       password: password,
     });
-    const data = await response.json();
 
-    if (!response.ok) {
-      setErrorMessage(data.detail);
+    if (token.access_token) {
+      setToken(token.access_token);
     } else {
-      setToken(data.access_token);
+      setErrorMessage(token.error);
     }
   };
 
