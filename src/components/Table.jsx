@@ -4,6 +4,7 @@ import ErrorMessage from "./ErrorMessage";
 import TaskModal from "./TaskModal";
 import { UserContext } from "../context/UserContext";
 import { ApiClient } from "../api-client";
+import TableItem from "./TableItem";
 
 const Table = () => {
   const [token] = useContext(UserContext);
@@ -76,27 +77,11 @@ const Table = () => {
           </thead>
           <tbody>
             {tasks.map((task) => (
-              <tr key={task.id}>
-                <td>{task.title}</td>
-                <td>{task.description}</td>
-                <td>{task.priority}</td>
-                <td>{task.progress}</td>
-                <td>{task.status}</td>
-                <td>
-                  <button
-                    className="button mr-2 is-info is-light"
-                    onClick={() => handleUpdate(task.id)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="button mr-2 is-danger is-light"
-                    onClick={() => handleDelete(task.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
+              <TableItem
+                task={task}
+                update_task={handleUpdate}
+                delete_task={handleDelete}
+              />
             ))}
           </tbody>
         </table>
