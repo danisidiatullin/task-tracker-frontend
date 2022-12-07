@@ -3,6 +3,7 @@ import { ApiClient } from "../api-client";
 
 import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
+import FormField from "./FormField";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -40,47 +41,26 @@ const Register = () => {
       <form className="box" onSubmit={handleSubmit}>
         <h1 className="title has-text-centered">Register</h1>
 
-        <div className="field">
-          <label className="label">Email Address</label>
-          <div className="control">
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input"
-              required=""
-            />
-          </div>
-        </div>
+        <FormField
+          label="Email Address"
+          type="email"
+          value={email}
+          f={setEmail}
+        />
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="input"
-              required=""
-            />
-          </div>
-        </div>
+        <FormField
+          label="Password"
+          type="password"
+          value={password}
+          f={setPassword}
+        />
 
-        <div className="field">
-          <label className="label">Confirm Password</label>
-          <div className="control">
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={confirmationPassword}
-              onChange={(e) => setConfirmationPassword(e.target.value)}
-              className="input"
-              required=""
-            />
-          </div>
-        </div>
+        <FormField
+          label="Confirm Password"
+          type="password"
+          value={confirmationPassword}
+          f={setConfirmationPassword}
+        />
 
         <ErrorMessage message={errorMessage} />
 

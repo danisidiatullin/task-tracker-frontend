@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Select from "react-select";
 import { ApiClient } from "../api-client";
+import FormField from "./FormField";
 
 const TaskModal = ({ active, handleModal, token, id, setErrorMessage }) => {
   const [title, setTitle] = useState("");
@@ -101,61 +102,28 @@ const TaskModal = ({ active, handleModal, token, id, setErrorMessage }) => {
         </header>
         <section className="modal-card-body">
           <form>
-            <div className="field">
-              <label className="label">Title</label>
-              <div className="control">
-                <input
-                  type="text"
-                  placeholder="Enter title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="input"
-                  required
-                />
-              </div>
-            </div>
+            <FormField label="Title" type="text" value={title} f={setTitle} />
 
-            <div className="field">
-              <label className="label">Description</label>
-              <div className="control">
-                <input
-                  type="text"
-                  placeholder="Enter description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="input"
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              label="Description"
+              type="text"
+              value={description}
+              f={setDescription}
+            />
 
-            <div className="field">
-              <label className="label">Priority</label>
-              <div className="control">
-                <input
-                  type="number"
-                  placeholder="Enter priority"
-                  value={priority}
-                  onChange={(e) => setPriority(e.target.value)}
-                  className="input"
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              label="Priority"
+              type="number"
+              value={priority}
+              f={setPriority}
+            />
 
-            <div className="field">
-              <label className="label">Progress</label>
-              <div className="control">
-                <input
-                  type="number"
-                  placeholder="Enter title"
-                  value={progress}
-                  onChange={(e) => setProgress(e.target.value)}
-                  className="input"
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              label="Progress"
+              type="number"
+              value={progress}
+              f={setProgress}
+            />
 
             <div className="field">
               <label className="label">Status</label>

@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import { UserContext } from "../context/UserContext";
 import { ApiClient, errorMessage } from "../api-client";
+import FormField from "./FormField";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -33,33 +34,19 @@ const Login = () => {
       <form className="box" onSubmit={handleSubmit}>
         <h1 className="title has-text-centered">Login</h1>
 
-        <div className="field">
-          <label className="label">Email Address</label>
-          <div className="control">
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="input"
-              required=""
-            />
-          </div>
-        </div>
+        <FormField
+          label="Email Address"
+          type="email"
+          value={email}
+          f={setEmail}
+        />
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="input"
-              required=""
-            />
-          </div>
-        </div>
+        <FormField
+          label="Password"
+          type="password"
+          value={password}
+          f={setPassword}
+        />
 
         <ErrorMessage message={errorMessage} />
         <br />
